@@ -1,26 +1,21 @@
-const http = require("http");
+const express = require("express");
+const path = require("path");
+const { products } = require("./data");
+const app = express();
 
-const server = http.createServer((req, res) => {
-  // console.log(req.url);
-  const url = req.url;
-  // home
-  if (url === "/") {
-    res.writeHead(200, { "content-type": "text/html" });
-    res.write("<h1>home page</h1>");
-    res.end();
-    // about
-  } else if (url === "/about") {
-    res.writeHead(200, { "content-type": "text/html" });
-    res.write("<h1>about page</h1>");
-    res.end();
-    // 404
-  } else {
-    res.writeHead(404, { "content-type": "text/html" });
-    res.write("<h1>page not found</h1>");
-    res.end();
-  }
+// setup static and middleware, app.use= middleware, static= built in middleware
+// app.use(express.static("./public")); // files server doesn't have to change
+
+app.get("/", (req, res) => {
+  res.send('<h1>Home page</h1><a href="api/products">products</a>');
 });
 
-server.listen(4000);
+app.all("*", (req, res) => {
+  res.status(404).send(`<h1>Resource not found</h1>`);
+});
 
-//4:41:33
+app.listen(3500, () => {
+  console.log("server listening on port 5000");
+});
+
+//5:35/12
