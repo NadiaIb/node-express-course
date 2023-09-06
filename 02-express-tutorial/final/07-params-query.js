@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const { products } = require('./data')
 
+// setup static and middleware, app.use= middleware, static= built in middleware
+// app.use(express.static("./public")); // files server doesn't have to change
+
 app.get('/', (req, res) => {
   res.send('<h1> Home Page</h1><a href="/api/products">products</a>')
 })
@@ -56,3 +59,10 @@ app.get('/api/v1/query', (req, res) => {
 app.listen(5000, () => {
   console.log('Server is listening on port 5000....')
 })
+
+
+
+// app.all("*", (req, res) => {
+//   res.status(404).send(`<h1>Resource not found</h1>`);
+// });
+
